@@ -20,7 +20,7 @@ public class LadderRowComparator implements Comparator<LadderRow> {
 		int winsDiff = o2.getWon() - o1.getWon();
 		if (winsDiff != 0) return winsDiff;
 		
-		int rankDiff= o2.getTeam().getRank() - o1.getTeam().getRank();
+		int rankDiff= o1.getTeam().getRank() - o2.getTeam().getRank();
 		return rankDiff;
 	}
 

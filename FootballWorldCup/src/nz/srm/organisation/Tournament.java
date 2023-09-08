@@ -38,7 +38,7 @@ public class Tournament {
 		
 		System.out.println("\nQualifiers\n==========\n");
 		for (Team t: qualifiers) {
-			System.out.println("Qualifier: " + t.getName());
+			System.out.println("Qualifier: " + t.getName() + " (" + t.getRank() + ")");
 		}
 	}
  	

@@ -2,8 +2,14 @@ package nz.srm.teams;
 
 public class Team {
 
-	public Team() {
-		// TODO Auto-generated constructor stub
+	private String name;
+	
+	public Team(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 
 }

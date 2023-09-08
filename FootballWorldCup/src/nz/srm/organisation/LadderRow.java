@@ -4,7 +4,7 @@ import nz.srm.teams.*;
 
 public class LadderRow {
 
-	private Team team;
+	private RealTeam realTeam;
 	private int played;
 	private int won;
 	private int lost;
@@ -14,8 +14,8 @@ public class LadderRow {
 	private static int pointsWin = 3;
 	private static int pointsDraw = 1;
 	
-	public LadderRow(Team team) {
-		this.team = team;
+	public LadderRow(RealTeam realTeam) {
+		this.realTeam = realTeam;
 		this.played = 0;
 		this.won = 0;
 		this.lost = 0;
@@ -25,11 +25,11 @@ public class LadderRow {
 	}
 
 	public String getName() {
-		return this.team.getName();
+		return this.realTeam.getName();
 	}
 	
-	public Team getTeam() {
-		return this.team;
+	public RealTeam getTeam() {
+		return this.realTeam;
 	}
 
 	public int getPlayed() {
@@ -89,7 +89,7 @@ public class LadderRow {
 	
 	public void print() {
 		String sep = "    |    ";
-		System.out.println(this.team.getName() + sep + 
+		System.out.println(this.realTeam.getName() + sep + 
 										this.played + sep +
 										this.won + sep + 
 										this.drawn + sep +

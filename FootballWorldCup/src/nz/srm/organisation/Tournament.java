@@ -6,7 +6,7 @@ import nz.srm.matches.*;
 
 public class Tournament {
 	
-	private List<Team> teams;
+	private List<RealTeam> realTeams;
 	private List<Group> groups;
 	private List<Match> results;
 	private boolean pauseSimulationPerMatch;
@@ -15,23 +15,23 @@ public class Tournament {
 	private static int groupSize = 4;
 	private static int numGroupQualifiers = 2;
 	
-	public Tournament(List<Team> teams) {
+	public Tournament(List<RealTeam> realTeams) {
 		this.pauseSimulationPerKnockoutMatch = false;
 		this.pauseSimulationPerMatch = true;
 		this.groups = new ArrayList<Group>();
 		this.scheduler = new Scheduler();
 		this.results = new ArrayList<Match>();
-		this.teams = teams;
+		this.realTeams = realTeams;
 	}
 	
 	public void setup() {
-		this.teams.sort(new TeamComparator());
+		this.realTeams.sort(new TeamComparator());
 		this.createStructure();
 		this.createSchedule();
 		this.simulate();
 		this.print();
 		
-		List<Team> qualifiers = new ArrayList<Team>();
+		List<RealTeam> qualifiers = new ArrayList<RealTeam>();
 		for (Group g: this.groups) {
 			qualifiers.addAll(g.getQualifiers(Tournament.numGroupQualifiers));
 		}
@@ -45,7 +45,7 @@ public class Tournament {
 	private void createStructure() {
 		if (!isValidTournament()) return;
 				
-		int numTeams = this.teams.size();
+		int numTeams = this.realTeams.size();
 		boolean[] assigned = new boolean[numTeams];
 		char gID = 'A';
 		int numGroups = numTeams / Tournament.groupSize;
@@ -53,14 +53,14 @@ public class Tournament {
 		for (int gNum = 0; gNum < numGroups; gNum++) {
 			Group g = new Group(Tournament.groupSize, gID++);
 			
-			g.addTeam(this.teams.get(gNum));
+			g.addTeam(this.realTeams.get(gNum));
 			
 			for (int seed = 2; seed <= Tournament.groupSize; seed++) {
 				while (true) {
 					int pick = (int) (Math.random() * numGroups);
 					int selection = pick + ((seed - 1) * numGroups);
 					if (!assigned[selection]) {
-						g.addTeam(this.teams.get(selection));
+						g.addTeam(this.realTeams.get(selection));
 						assigned[selection] = true;
 						break;
 					}
@@ -74,11 +74,20 @@ public class Tournament {
 	}
 	
 	private void createSchedule() {
-		this.scheduler.scheduleRoundRobin(1, groups, groupSize);
+		int finalRoundRobinMatchDay = this.scheduler.scheduleRoundRobin(1, groups, groupSize);
+		
+		int numTeams = this.realTeams.size();
+		int numLevels = 1;
+		while (numTeams > 2) {
+			numLevels++;
+			numTeams /= 2;
+		}
+		
+		this.scheduler.scheduleKnockouts(finalRoundRobinMatchDay, groups, numLevels);
 	}
 	
 	private boolean isValidTournament() {
-		return ((this.teams.size() % Tournament.groupSize) == 0) ? true : false;
+		return ((this.realTeams.size() % Tournament.groupSize) == 0) ? true : false;
 	
 	}
 	

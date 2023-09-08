@@ -16,7 +16,7 @@ public class Group {
 		this.ID = ID;
 	}
 
-	public void addTeam(Team t) {
+	public void addTeam(RealTeam t) {
 		if (this.rows.size() < this.maxSize) {
 			this.rows.add(new LadderRow(t));
 		} else {
@@ -66,22 +66,22 @@ public class Group {
 	 * @param index a value between 1 and the number of teams in this group.
 	 * @return
 	 */
-	protected List<Team> getTeams() {
-		List<Team> teams = new ArrayList<Team>();
+	protected List<RealTeam> getTeams() {
+		List<RealTeam> realTeams = new ArrayList<RealTeam>();
 		
 		for (LadderRow row: this.rows) {
-			teams.add(row.getTeam());
+			realTeams.add(row.getTeam());
 		}
 		
-		return teams;
+		return realTeams;
 	}
 	
-	public List<Team> getQualifiers(int num) {
-		List<Team> teams = new ArrayList<Team>();
+	public List<RealTeam> getQualifiers(int num) {
+		List<RealTeam> realTeams = new ArrayList<RealTeam>();
 		for (int loop = 0; loop < num; loop++) {
-			teams.add(this.rows.get(loop).getTeam());
+			realTeams.add(this.rows.get(loop).getTeam());
 		}
-		return teams;
+		return realTeams;
 	}
 	
 	public void print() {

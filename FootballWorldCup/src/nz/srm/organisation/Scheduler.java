@@ -40,18 +40,18 @@ public class Scheduler {
 			return matchPairs;
 		}
 		
-		public void scheduleRoundRobin(int startDate, List<Group> groups, int groupSize) {
+		public int scheduleRoundRobin(int startDate, List<Group> groups, int groupSize) {
 			
 				int matchDay = startDate;
 				for (int roundLoop = 1; roundLoop < groupSize; roundLoop++) {
 					List<Pair> matchPairs = this.scheduleRound(roundLoop, groupSize);
 					for (int groupLoop = 0; groupLoop < groups.size(); groupLoop++) {
 						Group group = groups.get(groupLoop);
-						List<Team> teams = group.getTeams();
+						List<RealTeam> realTeams = group.getTeams();
 						for (int matchLoop = 0; matchLoop < matchPairs.size(); matchLoop++) {
 							Pair pair = matchPairs.get(matchLoop);
-							Team home = teams.get(pair.idx1);
-							Team away = teams.get(pair.idx2);
+							Team home = realTeams.get(pair.idx1);
+							Team away = realTeams.get(pair.idx2);
 							Match match = new RoundRobinMatch(home, away, group, matchDay);	
 							this.roundRobinMatches.offer(match);
 						}
@@ -61,7 +61,12 @@ public class Scheduler {
 					}
 				}
 			
-				return;
+				return matchDay;
+		}
+		
+		public void scheduleKnockouts(int startDate, List<Group> groups, int rounds) {
+			System.out.println("\nThere are " + rounds + " rounds of knockout matches.");
+			return;
 		}
 		
 		/**

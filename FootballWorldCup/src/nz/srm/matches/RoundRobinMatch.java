@@ -1,7 +1,7 @@
 package nz.srm.matches;
 
-import nz.srm.teams.Team;
 import nz.srm.organisation.*;
+import nz.srm.teams.Team;
 
 public class RoundRobinMatch extends Match {
 

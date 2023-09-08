@@ -2,10 +2,10 @@ package nz.srm.teams;
 
 import java.util.Comparator;
 
-public class TeamComparator implements Comparator<Team> {
+public class TeamComparator implements Comparator<RealTeam> {
 
 	@Override
-	public int compare(Team o1, Team o2) {
+	public int compare(RealTeam o1, RealTeam o2) {
 		boolean firstHost = o1.isHost();
 		boolean secondHost = o2.isHost();
 		

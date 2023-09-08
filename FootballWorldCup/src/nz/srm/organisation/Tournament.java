@@ -38,11 +38,11 @@ public class Tournament {
 		for (int gNum = 0; gNum < numGroups; gNum++) {
 			Group g = new Group(Tournament.groupSize, gID++);
 			
-			g.addTeam(this.teams.get(numGroups));
+			g.addTeam(this.teams.get(gNum));
 			
 			for (int seed = 2; seed <= Tournament.groupSize; seed++) {
 				while (true) {
-					int pick = (int) (Math.random() * numGroups) + 1;
+					int pick = (int) (Math.random() * numGroups);
 					int selection = pick + ((seed - 1) * numGroups);
 					if (!assigned[selection]) {
 						g.addTeam(this.teams.get(selection));
@@ -51,11 +51,10 @@ public class Tournament {
 					}
 				}
 			}
-			
+				
 			this.groups.add(g);
-			return;
+
 		}
-	
 		
 	}
 	

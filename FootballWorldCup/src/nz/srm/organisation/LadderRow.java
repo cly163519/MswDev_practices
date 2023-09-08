@@ -1,8 +1,10 @@
 package nz.srm.organisation;
 
+import nz.srm.teams.*;
+
 public class LadderRow {
 
-	private String name;
+	private Team team;
 	private int played;
 	private int won;
 	private int lost;
@@ -12,8 +14,8 @@ public class LadderRow {
 	private static int pointsWin = 3;
 	private static int pointsDraw = 1;
 	
-	public LadderRow(String name) {
-		this.name = name;
+	public LadderRow(Team team) {
+		this.team = team;
 		this.played = 0;
 		this.won = 0;
 		this.lost = 0;
@@ -23,7 +25,11 @@ public class LadderRow {
 	}
 
 	public String getName() {
-		return name;
+		return this.team.getName();
+	}
+	
+	public Team getTeam() {
+		return this.team;
 	}
 
 	public int getPlayed() {
@@ -52,7 +58,7 @@ public class LadderRow {
 	
 	public void print() {
 		String sep = "    |    ";
-		System.out.println(this.name + sep + 
+		System.out.println(this.team.getName() + sep + 
 										this.played + sep +
 										this.won + sep + 
 										this.drawn + sep +

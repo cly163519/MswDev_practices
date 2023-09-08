@@ -24,6 +24,7 @@ public class Tournament {
 	public void setup() {
 		this.teams.sort(new TeamComparator());
 		this.createStructure();
+		this.createSchedule();
 		this.print();
 	}
  	
@@ -58,6 +59,10 @@ public class Tournament {
 		
 	}
 	
+	private void createSchedule() {
+		this.scheduler.scheduleRoundRobin(1, groups, groupSize);
+	}
+	
 	private boolean isValidTournament() {
 		return ((this.teams.size() % Tournament.groupSize) == 0) ? true : false;
 	
@@ -68,9 +73,13 @@ public class Tournament {
 	}
 	
 	public void print() {
+		System.out.println("Groups\n======\n\n");
 		for (Group g: this.groups) {
 			g.print();
 		}
+		
+		System.out.println("\n\nSchedule\n========\n\n");
+		scheduler.print();
 	}
 	
 }

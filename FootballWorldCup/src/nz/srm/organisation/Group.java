@@ -5,26 +5,19 @@ import nz.srm.teams.*;
 
 public class Group {
 	
-	private List<LadderRow> teams;
+	private List<LadderRow> rows;
 	private int maxSize;
 	private char ID;
 	
 	public Group(int size, char ID) {
-		this.teams = new ArrayList<LadderRow>();
+		this.rows = new ArrayList<LadderRow>();
 		this.maxSize = size;
 		this.ID = ID;
 	}
 
 	public void addTeam(Team t) {
-		if (this.teams.size() < this.maxSize) {
-			this.teams.add(new LadderRow(t.getName()));
-		} else {
-		}
-	}
-	
-	public void addTeam(String name) {
-		if (this.teams.size() < this.maxSize) {
-			this.teams.add(new LadderRow(name));
+		if (this.rows.size() < this.maxSize) {
+			this.rows.add(new LadderRow(t));
 		} else {
 		}
 	}
@@ -34,19 +27,20 @@ public class Group {
 	 * @param index a value between 1 and the number of teams in this group.
 	 * @return
 	 */
-	protected List<String> getTeams() {
-		List<String> names = new ArrayList<String>();
+	protected List<Team> getTeams() {
+		List<Team> teams = new ArrayList<Team>();
 		
-		for (LadderRow row: this.teams) {
-			names.add(row.getName());
+		for (LadderRow row: this.rows) {
+			teams.add(row.getTeam());
 		}
 		
-		return names;
+		return teams;
 	}
 	
 	public void print() {
+		System.out.println("GROUP " + this.ID);
 		System.out.println("Name | Played | Wins | Draws | Losses | Goals For | Goals Against | Goal Difference | Points");
-		for (LadderRow row: this.teams) {
+		for (LadderRow row: this.rows) {
 			row.print();
 		}
 	}

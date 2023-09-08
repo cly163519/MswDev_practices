@@ -1,11 +1,15 @@
 package nz.srm.matches;
 
 import nz.srm.teams.Team;
+import nz.srm.organisation.*;
 
 public class RoundRobinMatch extends Match {
 
-	public RoundRobinMatch(Team homeTeam, Team awayTeam, int date) {
+	private Group group;
+
+	public RoundRobinMatch(Team homeTeam, Team awayTeam, Group group, int date) {
 		super(homeTeam, awayTeam, date);
+		this.group = group;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,6 +21,7 @@ public class RoundRobinMatch extends Match {
 		int homeScore = Math.max(0, (int)(Math.random() * 3) - (int)(Math.random() * (rankingDiff / 6)));
 		int awayScore = Math.max(0, (int)(Math.random() * 3) + (int)(Math.random() * (rankingDiff / 6)));
 		this.result = new RoundRobinResult(homeScore, awayScore);
+		this.group.addResult(this);
 		return this.result;
 	}
 

@@ -52,7 +52,7 @@ public class Scheduler {
 							Pair pair = matchPairs.get(matchLoop);
 							Team home = teams.get(pair.idx1);
 							Team away = teams.get(pair.idx2);
-							Match match = new RoundRobinMatch(home, away, matchDay);	
+							Match match = new RoundRobinMatch(home, away, group, matchDay);	
 							this.roundRobinMatches.offer(match);
 						}
 						if ((groupLoop % 2) != 0) {

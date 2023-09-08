@@ -56,6 +56,37 @@ public class LadderRow {
 		return goalsAgainst;
 	}
 	
+	public void incrementDraw() {
+		this.played++;
+		this.drawn++;
+	}
+	
+	public void incrementWin() {
+		this.played++;
+		this.won++;
+	}
+	
+	public void incrementLoss() {
+		this.played++;
+		this.lost++;
+	}
+	
+	public void addGoalsFor(int goals) {
+		this.goalsScored += goals;
+	}
+	
+	public void addGoalsAgainst(int goals) {
+		this.goalsAgainst += goals;
+	}
+	
+	public int getGoalDifference() {
+		return this.goalsScored - this.goalsAgainst;
+	}
+	
+	public int getPoints() {
+		return (this.won * LadderRow.pointsWin) + (this.drawn * LadderRow.pointsDraw);
+	}
+	
 	public void print() {
 		String sep = "    |    ";
 		System.out.println(this.team.getName() + sep + 
@@ -65,8 +96,8 @@ public class LadderRow {
 										this.lost + sep + 
 										this.goalsScored + sep + 
 										this.goalsAgainst + sep + 
-										(this.goalsScored - this.goalsAgainst) + sep +
-										((this.won * LadderRow.pointsWin) + (this.drawn * LadderRow.pointsDraw)) + sep);
+										this.getGoalDifference() + sep +
+										this.getPoints() + sep);
 	}
 	
 }

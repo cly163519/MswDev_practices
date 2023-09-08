@@ -1,7 +1,7 @@
 package nz.srm.matches;
 
-import java.util.Date;
 import nz.srm.teams.*;
+import nz.srm.organisation.*;
 
 public abstract class Match {
 	

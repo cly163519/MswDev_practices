@@ -1,5 +1,8 @@
 package nz.srm.ui;
 
+import nz.srm.teams.*;
+import nz.srm.organisation.*;
+
 public class MainWindow {
 
 	public MainWindow() {

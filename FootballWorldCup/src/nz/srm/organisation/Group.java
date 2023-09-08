@@ -7,10 +7,12 @@ public class Group {
 	
 	private List<LadderRow> teams;
 	private int maxSize;
+	private char ID;
 	
-	public Group(int size) {
+	public Group(int size, char ID) {
 		this.teams = new ArrayList<LadderRow>();
 		this.maxSize = size;
+		this.ID = ID;
 	}
 
 	public void addTeam(Team t) {
@@ -40,6 +42,13 @@ public class Group {
 		}
 		
 		return names;
+	}
+	
+	public void print() {
+		System.out.println("Name | Played | Wins | Draws | Losses | Goals For | Goals Against | Goal Difference | Points");
+		for (LadderRow row: this.teams) {
+			row.print();
+		}
 	}
 	
 }

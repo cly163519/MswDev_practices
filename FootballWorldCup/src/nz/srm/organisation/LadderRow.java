@@ -9,6 +9,8 @@ public class LadderRow {
 	private int drawn;
 	private int goalsScored;
 	private int goalsAgainst;
+	private static int pointsWin = 3;
+	private static int pointsDraw = 1;
 	
 	public LadderRow(String name) {
 		this.name = name;
@@ -48,6 +50,17 @@ public class LadderRow {
 		return goalsAgainst;
 	}
 	
-	
+	public void print() {
+		String sep = "    |    ";
+		System.out.println(this.name + sep + 
+										this.played + sep +
+										this.won + sep + 
+										this.drawn + sep +
+										this.lost + sep + 
+										this.goalsScored + sep + 
+										this.goalsAgainst + sep + 
+										(this.goalsScored - this.goalsAgainst) + sep +
+										((this.won * LadderRow.pointsWin) + (this.drawn * LadderRow.pointsDraw)) + sep);
+	}
 	
 }

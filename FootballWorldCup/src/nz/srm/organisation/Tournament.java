@@ -1,7 +1,77 @@
 package nz.srm.organisation;
 
+import java.util.*;
+import nz.srm.teams.*;
+
 public class Tournament {
 	
+	private List<String> hosts;
+	private List<Team> teams;
+	private List<Group> groups;
+	private boolean pauseSimulationPerMatch;
+	private boolean pauseSimulationPerKnockoutMatch;
+	private Scheduler scheduler;
+	private static int groupSize = 4;
 	
-
+	public Tournament(List<Team> teams) {
+		this.pauseSimulationPerKnockoutMatch = false;
+		this.pauseSimulationPerMatch = true;
+		this.groups = new ArrayList<Group>();
+		this.scheduler = new Scheduler();
+		this.teams = teams;
+	}
+	
+	public void setup() {
+		this.teams.sort(new TeamComparator());
+		this.createStructure();
+		this.print();
+	}
+ 	
+	private void createStructure() {
+		if (!isValidTournament()) return;
+				
+		int numTeams = this.teams.size();
+		boolean[] assigned = new boolean[numTeams];
+		char gID = 'A';
+		int numGroups = numTeams / Tournament.groupSize;
+		
+		for (int gNum = 0; gNum < numGroups; gNum++) {
+			Group g = new Group(Tournament.groupSize, gID++);
+			
+			g.addTeam(this.teams.get(numGroups));
+			
+			for (int seed = 2; seed <= Tournament.groupSize; seed++) {
+				while (true) {
+					int pick = (int) (Math.random() * numGroups) + 1;
+					int selection = pick + ((seed - 1) * numGroups);
+					if (!assigned[selection]) {
+						g.addTeam(this.teams.get(selection));
+						assigned[selection] = true;
+						break;
+					}
+				}
+			}
+			
+			this.groups.add(g);
+			return;
+		}
+	
+		
+	}
+	
+	private boolean isValidTournament() {
+		return ((this.teams.size() % Tournament.groupSize) == 0) ? true : false;
+	
+	}
+	
+	public void simulate() {
+		
+	}
+	
+	public void print() {
+		for (Group g: this.groups) {
+			g.print();
+		}
+	}
+	
 }

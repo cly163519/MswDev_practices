@@ -8,7 +8,7 @@ public abstract class Match {
 		private Team homeTeam;
 		private Team awayTeam;
 		private int date;
-		private Result result;
+		protected Result result;
 		
 		public Match(Team homeTeam, Team awayTeam, int date) {
 			super();
@@ -41,9 +41,15 @@ public abstract class Match {
 		}
 		
 		public void print() {
-			System.out.println("Match Day: " + this.date +
-											" - " + this.homeTeam.getName() +
+			System.out.print("Match Day: " + this.date +
+											", " + this.homeTeam.getName() +
 											" vs " + this.awayTeam.getName());
+			
+			if (this.hasPlayed()) {
+				System.out.print(", score: " + this.result.homeScore + "  - " + this.result.awayScore);
+			}
+
+			System.out.println();
 			
 		}
 		

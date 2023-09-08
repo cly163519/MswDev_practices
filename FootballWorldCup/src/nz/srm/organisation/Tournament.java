@@ -2,6 +2,7 @@ package nz.srm.organisation;
 
 import java.util.*;
 import nz.srm.teams.*;
+import nz.srm.matches.*;
 
 public class Tournament {
 	
@@ -26,6 +27,7 @@ public class Tournament {
 		this.createStructure();
 		this.createSchedule();
 		this.print();
+		this.simulate();
 	}
  	
 	private void createStructure() {
@@ -69,7 +71,11 @@ public class Tournament {
 	}
 	
 	public void simulate() {
-		
+		while (this.scheduler.isNextMatch()) {
+			Match match = this.scheduler.getNextMatch();
+			Result result = match.simulate();
+			match.print();
+		}
 	}
 	
 	public void print() {

@@ -24,5 +24,5 @@ public abstract class Result {
 	public boolean isHomeWin() {
 		return homeScore > awayScore;
 	}
-	
+		
 }

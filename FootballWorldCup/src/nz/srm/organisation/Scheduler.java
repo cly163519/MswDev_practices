@@ -11,6 +11,7 @@ public class Scheduler {
 	
 		public Scheduler() {
 				this.roundRobinMatches = new ArrayDeque<Match>();
+				this.knockoutMatches = new ArrayDeque<Match>();
 		}
 		
 		private int findNextAvailableTeam(boolean[] assigned, int startIndex) {
@@ -45,7 +46,8 @@ public class Scheduler {
 				for (int roundLoop = 1; roundLoop < groupSize; roundLoop++) {
 					List<Pair> matchPairs = this.scheduleRound(roundLoop, groupSize);
 					for (int groupLoop = 0; groupLoop < groups.size(); groupLoop++) {
-						List<Team> teams = groups.get(groupLoop).getTeams();
+						Group group = groups.get(groupLoop);
+						List<Team> teams = group.getTeams();
 						for (int matchLoop = 0; matchLoop < matchPairs.size(); matchLoop++) {
 							Pair pair = matchPairs.get(matchLoop);
 							Team home = teams.get(pair.idx1);
@@ -67,7 +69,11 @@ public class Scheduler {
 		 * @return true if there is either a round robin match or a knockout match still scheduled to be played.
 		 */
 		public boolean isNextMatch() {
-				return (!this.roundRobinMatches.isEmpty() || !this.knockoutMatches.isEmpty());
+			return (!this.roundRobinMatches.isEmpty() || !this.knockoutMatches.isEmpty());
+		}
+		
+		public Match getNextMatch() {
+			return this.roundRobinMatches.poll();
 		}
 		
 		public void print() {

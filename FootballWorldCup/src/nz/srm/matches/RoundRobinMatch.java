@@ -1,7 +1,5 @@
 package nz.srm.matches;
 
-import java.util.Date;
-
 import nz.srm.teams.Team;
 
 public class RoundRobinMatch extends Match {
@@ -13,8 +11,13 @@ public class RoundRobinMatch extends Match {
 
 	@Override
 	public Result simulate() {
-		// TODO Auto-generated method stub
-		return null;
+		Team homeTeam = this.getHomeTeam();
+		Team awayTeam = this.getAwayTeam();
+		int rankingDiff = homeTeam.getRank() - awayTeam.getRank();
+		int homeScore = Math.max(0, (int)(Math.random() * 3) - (int)(Math.random() * (rankingDiff / 6)));
+		int awayScore = Math.max(0, (int)(Math.random() * 3) + (int)(Math.random() * (rankingDiff / 6)));
+		this.result = new RoundRobinResult(homeScore, awayScore);
+		return this.result;
 	}
 
 }

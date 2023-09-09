@@ -1,13 +1,6 @@
 package nz.srm.organisation;
 
-import nz.srm.matches.KnockoutMatch;
-import nz.srm.matches.Match;
-import nz.srm.matches.RoundRobinMatch;
 import nz.srm.matches.ScheduledMatch;
-import nz.srm.organisation.Scheduler.RobinPair;
-import nz.srm.teams.PlaceholderTeam;
-import nz.srm.teams.RealTeam;
-import nz.srm.teams.Team;
 
 import java.util.*;
 
@@ -16,27 +9,20 @@ public class WorldCupScheduler extends TournamentScheduler {
 	private int numGroups;
 	private int groupSize;
 	private List<ScheduledMatch> matches;
-	private char[] groupCodes;
-	private static char GROUP1 = 'A';
+	private char firstgroup;
 	
-	public WorldCupScheduler(int numTeams, int groupSize) {
+	public WorldCupScheduler(int numTeams, int numGroups, char groupID) {
 		super(numTeams);
-		this.groupSize = groupSize;
-		this.numGroups = numTeams / groupSize;
-		this.groupCodes = new char[numGroups];
+		this.groupSize = numTeams / numGroups;
+		this.firstgroup = groupID;
+		this.numGroups = numGroups;
 		this.matches = new ArrayList<ScheduledMatch>();
-		
-		for (int loop = 0; loop < numGroups; loop++) {
-			this.groupCodes[loop] = (char)(WorldCupScheduler.GROUP1 + loop);
-		}
 	}
 
 	@Override
 	public void schedule() {
 		this.scheduleRoundRobin();
 		this.scheduleKnockouts(4);
-		
-		this.matches.forEach(s -> s.print());
 	}
 
 	@Override
@@ -53,11 +39,6 @@ public class WorldCupScheduler extends TournamentScheduler {
 		}
 	}
 
-	@Override
-	public char[] getGroupCodes() {
-		return this.groupCodes;
-	}
-	
 	private record TeamNamePair (int idx1, int idx2) {}
 	
 	private int findNextAvailableTeam(boolean[] assigned, int startIndex) {
@@ -87,13 +68,13 @@ public class WorldCupScheduler extends TournamentScheduler {
 	private void scheduleRoundRobin() {
 		for (int round = 1; round < this.groupSize; round++) {
 			List<TeamNamePair> matchPairs = this.scheduleRound(round, groupSize);
-			for (int group = 0; group < this.groupSize; group++) {
-				String groupName = Character.toString(WorldCupScheduler.GROUP1 + group);
+			for (int group = 0; group < this.numGroups; group++) {
+				String groupName = Character.toString(this.firstgroup + group);
 				for (int matchLoop = 0; matchLoop < matchPairs.size(); matchLoop++) {
 					TeamNamePair teamNamePair = matchPairs.get(matchLoop);
 					String home = groupName + (teamNamePair.idx1 + 1);
 					String away = groupName + (teamNamePair.idx2 + 1);
-					ScheduledMatch match = new ScheduledMatch(home, away, "round robin", this.getMatchDay(), this.matches.size() + 1);	
+					ScheduledMatch match = new ScheduledMatch(home, away, TournamentScheduler.GROUP_STAGE, this.getMatchDay(), this.matches.size() + 1);	
 					this.matches.add(match);
 				}
 				if ((group % 2) != 0) {
@@ -105,16 +86,16 @@ public class WorldCupScheduler extends TournamentScheduler {
 	
 	private void scheduleFirstRoundKnockouts(int num) {
 		
-		char group1 = WorldCupScheduler.GROUP1;
-		char group2 = (char)(WorldCupScheduler.GROUP1 + 1);
+		char group1 = this.firstgroup;
+		char group2 = (char)(this.firstgroup + 1);
 		for (int loop = 0; loop < num / 2; loop++) {
-			String team1 = Character.toString(group1) + "1";
-			String team2 = Character.toString(group2) + "2";
-			String team3 = Character.toString(group2) + "1";
-			String team4 = Character.toString(group1) + "2";
-			ScheduledMatch match1 = new ScheduledMatch(team1, team2, "knockout", this.getMatchDay(), this.matches.size());
+			String team1 = "Q" + group1 + "1";
+			String team2 = "Q" + group2 + "2";
+			String team3 = "Q" + group2 + "1";
+			String team4 = "Q" + group1 + "2";
+			ScheduledMatch match1 = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
 			this.matches.add(match1);
-			ScheduledMatch match2 = new ScheduledMatch(team3, team4, "knockout", this.getMatchDay(), this.matches.size());
+			ScheduledMatch match2 = new ScheduledMatch(team3, team4, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
 			this.matches.add(match2);
 
 			this.advanceMatchDay(1);
@@ -129,9 +110,9 @@ public class WorldCupScheduler extends TournamentScheduler {
 		int count = num * 2;
 		
 		for (int loop = 0; loop < num; loop++) {
-			String team1 = "Winner of " + (this.matches.size() - (count--));
-			String team2 = "Winner of " + (this.matches.size() - (count));
-			ScheduledMatch match = new ScheduledMatch(team1, team2, "knockout", this.getMatchDay(), this.matches.size());
+			String team1 = TournamentScheduler.WINNEROFTAG + (this.matches.size() - (count--));
+			String team2 = TournamentScheduler.WINNEROFTAG + (this.matches.size() - (count));
+			ScheduledMatch match = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
 			this.matches.add(match);
 			if ((loop % 2) != 0) {
 				this.advanceMatchDay(1);
@@ -140,7 +121,6 @@ public class WorldCupScheduler extends TournamentScheduler {
 	}
 	
 	private void scheduleKnockouts(int rounds) {
-		System.out.println("\nThere are " + rounds + " rounds of knockout matches.");
 		
 		int nextRound = 1;
 		int matchesToSchedule = (int)Math.pow(2, rounds - nextRound);

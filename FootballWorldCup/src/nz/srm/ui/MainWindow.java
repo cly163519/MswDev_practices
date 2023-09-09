@@ -1,6 +1,7 @@
 package nz.srm.ui;
 
 import java.util.*;
+
 import nz.srm.teams.*;
 import nz.srm.organisation.*;
 
@@ -14,46 +15,49 @@ public class MainWindow {
 		// TODO Auto-generated method stub
 		System.out.println("Football World Cup Simulator 2023");
 		
-		List<RealTeam> realTeams = new ArrayList<RealTeam>();
+		List<Team> teams = new ArrayList<Team>();
 		
-		realTeams.add(new RealTeam("Sweden", 1, false));
-		realTeams.add(new RealTeam("Spain", 2, false));
-		realTeams.add(new RealTeam("USA", 3, false));
-		realTeams.add(new RealTeam("England", 4, false));
-		realTeams.add(new RealTeam("France", 5, false));
-		realTeams.add(new RealTeam("Germany", 6, false));
-		realTeams.add(new RealTeam("Netherlands", 7, false));
-		realTeams.add(new RealTeam("Japan", 8, false));
-		realTeams.add(new RealTeam("Brazil", 9, false));
-		realTeams.add(new RealTeam("Canada", 10, false));
-		realTeams.add(new RealTeam("Switzerland", 21, false));
-		realTeams.add(new RealTeam("Colombia", 22, false));
-		realTeams.add(new RealTeam("Scotland", 23, false));
-		realTeams.add(new RealTeam("Republic of Ireland", 24, false));
-		realTeams.add(new RealTeam("Russia", 25, false));
-		realTeams.add(new RealTeam("Aotearoa New Zealand", 26, true));
-		realTeams.add(new RealTeam("Czechia", 27, false));
-		realTeams.add(new RealTeam("Finland", 28, false));
-		realTeams.add(new RealTeam("Wales", 29, false));
-		realTeams.add(new RealTeam("Poland", 30, false));
-		realTeams.add(new RealTeam("Argentina", 31, false));
-		realTeams.add(new RealTeam("Nigeria", 32, false));
-		realTeams.add(new RealTeam("Australia", 11, true));
-		realTeams.add(new RealTeam("Denmark", 12, false));
-		realTeams.add(new RealTeam("Norway", 13, false));
-		realTeams.add(new RealTeam("Iceland", 14, false));
-		realTeams.add(new RealTeam("China PR", 15, false));
-		realTeams.add(new RealTeam("Austria", 16, false));
-		realTeams.add(new RealTeam("Italy", 17, false));
-		realTeams.add(new RealTeam("Belgium", 18, false));
-		realTeams.add(new RealTeam("Portugal", 19, false));
-		realTeams.add(new RealTeam("Korea Republic", 20, false));
+		teams.add(new Team("Sweden", 1, 0));
+		teams.add(new Team("Spain", 2, 0));
+		teams.add(new Team("USA", 3, 0));
+		teams.add(new Team("England", 4, 0));
+		teams.add(new Team("France", 5, 0));
+		teams.add(new Team("Germany", 6, 0));
+		teams.add(new Team("Netherlands", 7, 0));
+		teams.add(new Team("Japan", 8, 0));
+		teams.add(new Team("Brazil", 9, 0));
+		teams.add(new Team("Canada", 10, 0));
+		teams.add(new Team("Switzerland", 21, 0));
+		teams.add(new Team("Colombia", 22, 0));
+		teams.add(new Team("Scotland", 23, 0));
+		teams.add(new Team("Republic of Ireland", 24, 0));
+		teams.add(new Team("Russia", 25, 0));
+		teams.add(new Team("Aotearoa New Zealand", 26, 0));
+		teams.add(new Team("Czechia", 27, 0));
+		teams.add(new Team("Finland", 28, 0));
+		teams.add(new Team("Wales", 29, 0));
+		teams.add(new Team("Poland", 30, 0));
+		teams.add(new Team("Argentina", 31, 0));
+		teams.add(new Team("Nigeria", 32, 0));
+		teams.add(new Team("Australia", 11, 0));
+		teams.add(new Team("Denmark", 12, 0));
+		teams.add(new Team("Norway", 13, 0));
+		teams.add(new Team("Iceland", 14, 0));
+		teams.add(new Team("China PR", 15, 0));
+		teams.add(new Team("Austria", 16, 0));
+		teams.add(new Team("Italy", 17, 0));
+		teams.add(new Team("Belgium", 18, 0));
+		teams.add(new Team("Portugal", 19, 0));
+		teams.add(new Team("Korea Republic", 20, 0));
 
-		Tournament worldCup = new Tournament(realTeams);
-		worldCup.setup();
+		char firstgroup = 'A';
+		int numGroups = teams.size() / 4;
+		TournamentStructure structure = new WorldCupStructure(numGroups, firstgroup);
+		TournamentScheduler scheduler = new WorldCupScheduler(teams.size(), numGroups, firstgroup);
+		FootballTournament worldCup = new FootballTournament("Women's World Cup", 2023, structure, scheduler);
 		
-		TournamentScheduler scheduler = new WorldCupScheduler(32, 4);
-		scheduler.schedule();
+		worldCup.setup(teams);
+		worldCup.simulate();
 		
 	}
 

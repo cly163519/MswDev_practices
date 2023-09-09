@@ -6,9 +6,9 @@ public class ScheduledMatch {
 	private String awayTeam;
 	private int matchDay;
 	private int matchID;
-	private String matchType;
+	private int matchType;
 	
-	public ScheduledMatch(String homeTeam, String awayTeam, String matchType, int matchDay, int matchID) {
+	public ScheduledMatch(String homeTeam, String awayTeam, int matchType, int matchDay, int matchID) {
 		super();
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
@@ -25,7 +25,7 @@ public class ScheduledMatch {
 		return this.awayTeam;
 	}
 	
-	public String getMatchType() {
+	public int getMatchType() {
 		return this.matchType;
 	}
 

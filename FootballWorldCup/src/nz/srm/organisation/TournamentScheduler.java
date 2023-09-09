@@ -6,8 +6,9 @@ public abstract class TournamentScheduler {
 
 	private int matchDay;
 	private int numTeams;
-	public static int GROUP_STAGE = 1;
-	public static int KNOCKOUT = 2;
+	public final static int GROUP_STAGE = 1;
+	public final static int KNOCKOUT = 2;
+	public final static String WINNEROFTAG = "Winner of ";
 	
 	public TournamentScheduler(int numTeams) {
 		this.matchDay = 1;
@@ -26,12 +27,12 @@ public abstract class TournamentScheduler {
 		return this.numTeams;
 	}
 	
-	public abstract char[] getGroupCodes();
+//	public abstract char[] getGroupCodes();
 	
 	public abstract void schedule();
 	
 	public abstract int getNumberOfMatchesScheduled();
 	
 	public abstract ScheduledMatch getScheduledMatch(int matchID);
-	
+		
 }

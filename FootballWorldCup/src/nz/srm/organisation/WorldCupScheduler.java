@@ -93,9 +93,9 @@ public class WorldCupScheduler extends TournamentScheduler {
 			String team2 = "Q" + group2 + "2";
 			String team3 = "Q" + group2 + "1";
 			String team4 = "Q" + group1 + "2";
-			ScheduledMatch match1 = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
+			ScheduledMatch match1 = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size() + 1);
 			this.matches.add(match1);
-			ScheduledMatch match2 = new ScheduledMatch(team3, team4, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
+			ScheduledMatch match2 = new ScheduledMatch(team3, team4, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size() + 1);
 			this.matches.add(match2);
 
 			this.advanceMatchDay(1);
@@ -110,9 +110,9 @@ public class WorldCupScheduler extends TournamentScheduler {
 		int count = num * 2;
 		
 		for (int loop = 0; loop < num; loop++) {
-			String team1 = TournamentScheduler.WINNEROFTAG + (this.matches.size() - (count--));
-			String team2 = TournamentScheduler.WINNEROFTAG + (this.matches.size() - (count));
-			ScheduledMatch match = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size());
+			String team1 = TournamentScheduler.WINNEROFTAG + (this.matches.size() + 1 - (count--));
+			String team2 = TournamentScheduler.WINNEROFTAG + (this.matches.size() + 1 - count);
+			ScheduledMatch match = new ScheduledMatch(team1, team2, TournamentScheduler.KNOCKOUT, this.getMatchDay(), this.matches.size() + 1);
 			this.matches.add(match);
 			if ((loop % 2) != 0) {
 				this.advanceMatchDay(1);

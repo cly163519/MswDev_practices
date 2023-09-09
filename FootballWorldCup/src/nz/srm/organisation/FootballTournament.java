@@ -22,6 +22,10 @@ public class FootballTournament {
 		return this.name;
 	}
 	
+	public String getFullName() {
+		return this.year + " " + this.name;
+	}
+	
 	public int getYear() {
 		return this.year;
 	}
@@ -31,7 +35,7 @@ public class FootballTournament {
 		this.structure.addTeams(teams);
 	}
 	
-	public void simulate() {
+	public Team simulate() {
 		
 		this.printSchedule();
 		
@@ -67,7 +71,9 @@ public class FootballTournament {
 			}
 
 		}
-		return;
+		
+		Team winner = this.structure.getTeam(TournamentScheduler.WINNEROFTAG + this.scheduler.getNumberOfMatchesScheduled());
+		return winner;
 	}
 	
 	public void printSchedule() {

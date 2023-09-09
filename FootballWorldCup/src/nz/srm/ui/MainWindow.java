@@ -57,7 +57,9 @@ public class MainWindow {
 		FootballTournament worldCup = new FootballTournament("Women's World Cup", 2023, structure, scheduler);
 		
 		worldCup.setup(teams);
-		worldCup.simulate();
+		Team winner = worldCup.simulate();
+		
+		System.out.println("\nCONGRATULATIONS TO " + winner.getName() + ", WINNERS OF THE " + worldCup.getFullName());
 		
 	}
 

@@ -9,13 +9,15 @@ public abstract class Match {
 		private Team awayTeam;
 		private int date;
 		protected Result result;
+		private int ID;
 		
-		public Match(Team homeTeam, Team awayTeam, int date) {
+		public Match(Team homeTeam, Team awayTeam, int date, int ID) {
 			super();
 			this.homeTeam = homeTeam;
 			this.awayTeam = awayTeam;
 			this.date = date;
 			this.result = null;
+			this.ID = ID;
 		}
 
 		public abstract Result simulate();
@@ -25,19 +27,23 @@ public abstract class Match {
 		}
 
 		public Team getHomeTeam() {
-			return homeTeam;
+			return this.homeTeam;
 		}
 
 		public Team getAwayTeam() {
-			return awayTeam;
+			return this.awayTeam;
 		}
 
 		public int getDate() {
-			return date;
+			return this.date;
 		}
 
 		public Result getResult() {
-			return result;
+			return this.result;
+		}
+		
+		public int getID() {
+			return this.ID;
 		}
 		
 		public void print() {

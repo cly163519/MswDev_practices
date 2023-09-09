@@ -8,7 +8,7 @@ public class Tournament {
 	
 	private List<RealTeam> realTeams;
 	private List<Group> groups;
-	private List<Match> results;
+	private Map<String, Match> results;
 	private boolean pauseSimulationPerMatch;
 	private boolean pauseSimulationPerKnockoutMatch;
 	private Scheduler scheduler;
@@ -20,7 +20,7 @@ public class Tournament {
 		this.pauseSimulationPerMatch = true;
 		this.groups = new ArrayList<Group>();
 		this.scheduler = new Scheduler();
-		this.results = new ArrayList<Match>();
+		this.results = new HashMap<String, Match>();
 		this.realTeams = realTeams;
 	}
 	
@@ -28,6 +28,7 @@ public class Tournament {
 		this.realTeams.sort(new TeamComparator());
 		this.createStructure();
 		this.createSchedule();
+		this.scheduler.print();
 		this.simulate();
 		this.print();
 		
@@ -76,14 +77,14 @@ public class Tournament {
 	private void createSchedule() {
 		int finalRoundRobinMatchDay = this.scheduler.scheduleRoundRobin(1, groups, groupSize);
 		
-		int numTeams = this.realTeams.size();
+		int numTeams = this.groups.size() * Tournament.numGroupQualifiers;
 		int numLevels = 1;
 		while (numTeams > 2) {
 			numLevels++;
 			numTeams /= 2;
 		}
 		
-		this.scheduler.scheduleKnockouts(finalRoundRobinMatchDay, groups, numLevels);
+		this.scheduler.scheduleKnockouts(finalRoundRobinMatchDay + 1, groups, numLevels);
 	}
 	
 	private boolean isValidTournament() {
@@ -92,17 +93,24 @@ public class Tournament {
 	}
 	
 	public void simulate() {
-		while (this.scheduler.isNextMatch()) {
-			Match match = this.scheduler.getNextMatch();
+		int matchID = 1;
+		while (this.scheduler.isNextMatchRoundRobin()) {
+			Match match = this.scheduler.getNextRoundRobinMatch();
 			match.simulate();
-			this.results.add(match);
+			this.results.put(Integer.toString(matchID++), match);
 		}
 	}
 	
 	public void print() {
 		System.out.println("'\nResults\n======\n");
-		for (Match m: this.results) {
-			m.print();
+		int matchID = 1;
+		while (true) {
+			Match match = this.results.get(Integer.toString(matchID++));
+			if (match != null) {
+				match.print();
+			} else {
+				break;
+			}
 		}
 		System.out.println("\nGroups\n======\n");
 		for (Group g: this.groups) {

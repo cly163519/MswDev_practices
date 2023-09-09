@@ -7,8 +7,8 @@ public class RoundRobinMatch extends Match {
 
 	private Group group;
 
-	public RoundRobinMatch(Team homeTeam, Team awayTeam, Group group, int date) {
-		super(homeTeam, awayTeam, date);
+	public RoundRobinMatch(Team homeTeam, Team awayTeam, Group group, int date, int ID) {
+		super(homeTeam, awayTeam, date, ID);
 		this.group = group;
 		// TODO Auto-generated constructor stub
 	}

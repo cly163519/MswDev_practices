@@ -2,7 +2,7 @@ package nz.srm.teams;
 
 public class PlaceholderTeam extends Team {
 
-	public PlaceholderTeam(String name, int rank, boolean isHost) {
+	public PlaceholderTeam(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}

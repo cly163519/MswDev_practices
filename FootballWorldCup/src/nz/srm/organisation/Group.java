@@ -84,6 +84,10 @@ public class Group {
 		return realTeams;
 	}
 	
+	public RealTeam getQualifier(int num) {
+		return this.rows.get(num).getTeam();
+	}
+	
 	public void print() {
 		System.out.println("\nGROUP " + this.ID);
 		System.out.println("Name | Played | Wins | Draws | Losses | Goals For | Goals Against | Goal Difference | Points");

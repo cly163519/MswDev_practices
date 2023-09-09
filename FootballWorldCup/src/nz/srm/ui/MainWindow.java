@@ -52,6 +52,9 @@ public class MainWindow {
 		Tournament worldCup = new Tournament(realTeams);
 		worldCup.setup();
 		
+		TournamentScheduler scheduler = new WorldCupScheduler(32, 4);
+		scheduler.schedule();
+		
 	}
 
 }

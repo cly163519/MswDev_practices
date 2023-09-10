@@ -41,6 +41,11 @@ public class FootballTournament {
 		return this.year;
 	}
 	
+	/**
+	 * Takes a list of teams, organises a schedule for the tournament, and places teams into particular places in the tournament structure.
+	 * 
+	 * @param teams a non-empty list of valid teams.
+	 */
 	public void setup(List<Team> teams) {
 		this.scheduler.schedule();
 		this.structure.addTeams(teams);

@@ -4,6 +4,9 @@ import nz.srm.matches.*;
 import nz.srm.teams.*;
 import java.util.*;
 
+/**
+ * 
+ */
 public class FootballTournament {
 	
 	private String name;
@@ -11,6 +14,14 @@ public class FootballTournament {
 	private TournamentStructure structure;
 	private TournamentScheduler scheduler;
 	
+	/**
+	 * Main constructor that stores links to the key components for running the tournament.
+	 * 
+	 * @param name the name of the tournament, without the year included.
+	 * @param year a positive integer.
+	 * @param structure a non-null reference to an object that can organise the structure of the tournament.
+	 * @param scheduler a non-null reference to an object that can schedule the matches in the tournament.
+	 */
 	public FootballTournament(String name, int year, TournamentStructure structure, TournamentScheduler scheduler) {
 		this.name = name;
 		this.year = year;

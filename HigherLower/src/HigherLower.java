@@ -34,10 +34,39 @@ public class HigherLower {
      * and how many guesses they used in total.
      */
     public void higherLowerCompletion(){
-        /*# YOUR CODE HERE */
+        /*# YOUR CODE HERE (Learning while loop) */
+    	int rounds = UI.askInt("How many rounds: ");
+    	//int target = (int)Math.floor(Math.random() * 100) + 1;
+    	int guessCorrect = 0;
+    	int totallyGuess = 0;
+    	int round = 0;
     	
+    	while (round < rounds) {
+    		int target = (int)Math.floor(Math.random() * 100) + 1;
+    		//int guess = UI.askInt("You guess: ");
+    		int guessThisRound = 0;
+    		//round++;
+    		while(guessThisRound < 10) {
+    			int guess = UI.askInt("You guess: ");
+    			guessThisRound++;
+    			totallyGuess++;
+    			
+    			if (guess == target) {
+    				UI.println("You win!");
+    				guessCorrect++;
+    				//totallyGuess++;
+    				break;
+    			} else if (guess > target) {
+    				UI.println("Higher!");
+    			} else {
+    				UI.println("Lower!");
+    			}
+    		}	
+    		round++;
+    	}
     	
-    	
+    	UI.println("Correctly: " + guessCorrect);
+    	UI.println("Totally: " + totallyGuess);
     }
      
     /**
@@ -50,7 +79,7 @@ public class HigherLower {
      * and how many guesses they used in total.
      */
     public void higherLowerChallenge(){
-        /*# YOUR CODE HERE */
+        /*# YOUR CODE HERE (Learning for loop) */
     	
     }
     	

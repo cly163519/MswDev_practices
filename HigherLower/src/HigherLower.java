@@ -82,6 +82,34 @@ public class HigherLower {
     public void higherLowerChallenge(){
         /*# YOUR CODE HERE (Learning for loop) */
     	
+    	int rounds = UI.askInt("How many rounds:");
+    	
+    	int correctGuesses = 0;
+    	int totallyGuesses = 0;
+    	
+    	for(int i = 0; i < rounds; i++) {
+    		int target = (int)Math.floor(Math.random() * 100) + 1;
+    		for(int j = 0; j < 10; j++) {
+    			int guess = UI.askInt("Guess: ");
+    			if(guess == target) {
+    				UI.println("You win!");
+    				correctGuesses++;
+    				totallyGuesses++;
+    				break;
+    			}else if(guess < target) {
+    				UI.println("Lower!");
+    			}else {
+    				UI.println("Higher!");
+    			}
+    			totallyGuesses++;
+    		}
+    			
+    			if(i < rounds) {
+				UI.println("Next round!");
+    		}
+    		UI.println("correctGuesses: " + correctGuesses);
+    		UI.println("totallyGuesses: " + totallyGuesses);
+    	}
     	
     	
     }

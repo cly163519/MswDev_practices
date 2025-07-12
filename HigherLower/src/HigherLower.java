@@ -35,37 +35,39 @@ public class HigherLower {
      */
     public void higherLowerCompletion(){
         /*# YOUR CODE HERE (Learning while loop) */
-    	int rounds = UI.askInt("How many rounds: ");
- 
-    	int guessCorrect = 0;
-    	int totallyGuess = 0;
     	int round = 0;
+    	int rounds = UI.askInt("How many rounds: ");
+    	int correctGuess = 0;
+    	int totallyGuesses = 0;
     	
-    	while (round < rounds) {
+    	while(round < rounds) {
     		int target = (int)Math.floor(Math.random() * 100) + 1;
-    		int guessThisRound = 0;
+    		int guessWithinTen = 0;
     		
-    		while(guessThisRound < 10) {
-    			int guess = UI.askInt("You guess: ");
-    			guessThisRound++;
-    			totallyGuess++;
-    			
+    		while(guessWithinTen < 10) {
+    			int guess = UI.askInt("Guess: ");
     			if (guess == target) {
-    				UI.println("You win!");
-    				guessCorrect++;
-    				//totallyGuess++;
-    				break;
-    			} else if (guess > target) {
-    				UI.println("Higher!");
-    			} else {
-    				UI.println("Lower!");
-    			}
-    		}	
+        			UI.println("You win!");
+        			correctGuess++;
+        			totallyGuesses++;
+        			break;
+        		}else if(guess < target) {
+        			UI.println("Lower");
+        		}else {
+        			UI.println("Higher");
+        		}
+    			//correctGuess++;
+    			totallyGuesses++;
+    			guessWithinTen++;
+    		}
     		round++;
+    		if(round < rounds) {
+    			UI.println("Next round!");
+    		}
+    		
     	}
-    	
-    	UI.println("Correctly: " + guessCorrect);
-    	UI.println("Totally: " + totallyGuess);
+    	UI.println("correctGuess: " + correctGuess);
+    	UI.println("totallyGuesses " + totallyGuesses);    	
     }
      
     /**
@@ -79,6 +81,8 @@ public class HigherLower {
      */
     public void higherLowerChallenge(){
         /*# YOUR CODE HERE (Learning for loop) */
+    	
+    	
     	
     }
     	

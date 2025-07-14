@@ -8,6 +8,8 @@
  * ID:
  */
 
+import java.awt.Color;
+
 import ecs100.*;
 
 public class PatternDrawer{
@@ -62,21 +64,24 @@ public class PatternDrawer{
         UI.clearGraphics();
         int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
-        int cols = rows;
-        double size = boardSize / rows;
+        //double cols = rows;
+        double cell = boardSize / rows;
         
-        int col = 0;
-     
-        	
-        	int row = 0;
-        	while(row < rows) {
-        		double x = boardLeft + row * size;
-        		double y = boardTop + col * size;
-        		UI.drawRect(x, y, size, size);
+        for(int row = 0; row < rows; row++) {
+        	for(int col = 0; col < rows - row; col++) {
+        		double x = boardLeft + cell * col;
+        		double y = boardTop + cell * row;
+        		UI.setColor(Color.black);
+        		UI.fillRect(x, y, cell, cell);
+        		UI.setColor(Color.white);
+        		UI.drawRect(x, y, cell, cell);
+        		
+        		
+        		
         	}
-        	row++;
-        
-        
+        	
+        }
+  
     }
 
     /** Draw a checkered board with alternating black and white squares
@@ -86,8 +91,29 @@ public class PatternDrawer{
      */
     public void drawCheckersBoard(){
         UI.clearGraphics();
-        int num = UI.askInt("How many rows:");
+        int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
+        int row = 0;
+        int col = 0;
+        double cell= boardSize / rows;
+        for(row = 0; row < rows; row++) {
+        	
+        	for(col = 0; col < rows; col++) {
+        		double x = boardLeft + cell * col;
+        		double y = boardTop + cell * row;
+        		//UI.drawRect(x, y, cell, cell);
+        		if((row + col) % 2 == 0) {
+        			UI.setColor(Color.white);
+        		}else {
+        			UI.setColor(Color.black);	
+        		}
+        		UI.fillRect(x, y, cell, cell);
+        		
+        		UI.setColor(Color.black);
+        		UI.drawRect(x, y, cell, cell);
+        		
+        	}
+        }
 
     }
 

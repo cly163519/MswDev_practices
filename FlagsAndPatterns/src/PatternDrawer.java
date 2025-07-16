@@ -122,9 +122,25 @@ public class PatternDrawer{
      */
     public void drawConcentricBoard(){
         UI.clearGraphics();
-        int num = UI.askInt("How many rows:");
+        int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
-
+        double cell = boardSize / rows;
+        double radius = cell / 2;
+        
+        for(int row = 0; row < rows; row++) {
+        	for(int col = 0; col < rows; row++) {
+        		double x = boardLeft + cell * col + radius;
+        		double y = boardTop + cell * row + radius;
+        		
+        		UI.drawOval(x, y, radius * 2, radius * 2);
+        		radius -= 1;
+        		
+        	}
+        }
+        
+        
+        
+        
     }
 
 

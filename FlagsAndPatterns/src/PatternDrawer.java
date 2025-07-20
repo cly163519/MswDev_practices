@@ -38,22 +38,10 @@ public class PatternDrawer{
         		double x = boardLeft + length * row;
         		double y = boardTop + length * col;
         		UI.drawRect(x, y, length, length);
-        		
-//        	UI.drawRect(50, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*2, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*3, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*4, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*5, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*6, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*7, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*8, boardTop, length, length);
-//        	UI.drawRect(boardLeft+length*9, boardTop, length, length);
         		col++;
         }
         	row++;
     }
-        
-    
 }
 
     /** Illusion

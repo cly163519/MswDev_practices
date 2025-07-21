@@ -28,20 +28,15 @@ public class PatternDrawer{
         int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
         int cols = rows;
-        double length = boardSize / rows;
+        double cell = boardSize / rows;
         
-        int row = 0;
-        while(row < rows) {
-        	int col = 0;
-        	
-        	while(col < cols) {
-        		double x = boardLeft + length * row;
-        		double y = boardTop + length * col;
-        		UI.drawRect(x, y, length, length);
-        		col++;
+        for(int row = 0; row < rows; row++) {
+        	for(int col = 0; col < cols; col++) {
+        		UI.drawRect(boardLeft + cell * col, boardTop + cell * row, cell, cell);
+        		
+        	}
         }
-        	row++;
-    }
+        
 }
 
     /** Illusion
@@ -52,24 +47,20 @@ public class PatternDrawer{
         UI.clearGraphics();
         int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
-        //double cols = rows;
+        int cols = rows;
         double cell = boardSize / rows;
-        
         for(int row = 0; row < rows; row++) {
         	for(int col = 0; col < rows - row; col++) {
         		double x = boardLeft + cell * col;
         		double y = boardTop + cell * row;
-        		UI.setColor(Color.black);
+        		
+        		UI.setColor(Color.red);
         		UI.fillRect(x, y, cell, cell);
         		UI.setColor(Color.white);
         		UI.drawRect(x, y, cell, cell);
-        		
-        		
-        		
         	}
-        	
         }
-  
+        
     }
 
     /** Draw a checkered board with alternating black and white squares
@@ -89,7 +80,7 @@ public class PatternDrawer{
         	for(col = 0; col < rows; col++) {
         		double x = boardLeft + cell * col;
         		double y = boardTop + cell * row;
-        		//UI.drawRect(x, y, cell, cell);
+        		
         		if((row + col) % 2 == 0) {
         			UI.setColor(Color.white);
         		}else {
@@ -112,19 +103,25 @@ public class PatternDrawer{
         UI.clearGraphics();
         int rows = UI.askInt("How many rows:");
         /*# YOUR CODE HERE */
-        double cell = boardSize / rows;
-        double radius = cell / 2;
-        
-        for(int row = 0; row < rows; row++) {
-        	for(int col = 0; col < rows; row++) {
-        		double x = boardLeft + cell * col + radius;
-        		double y = boardTop + cell * row + radius;
-        		
-        		UI.drawOval(x, y, radius * 2, radius * 2);
-        		radius -= 1;
-        		
-        	}
+        double cellSize = boardSize / rows;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < rows; col++) {
+                double x = boardLeft + col * cellSize + 1;
+                double y = boardTop + row * cellSize + 1;
+                drawConcentricCircles(x, y, cellSize - 2);
+            }
         }
+    }
+
+    public void drawConcentricCircles(double x, double y, double size) {
+        int count = (int)(size / 5);  // Control the number of concentric circles
+        for (int i = 0; i < count; i++) {
+            double inset = i * 2;
+            UI.drawOval(x + inset, y + inset, size - 2 * inset, size - 2 * inset);
+        }
+    }
+        
         
         
         
@@ -132,5 +129,5 @@ public class PatternDrawer{
     }
 
 
-}
+
 

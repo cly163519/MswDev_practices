@@ -113,6 +113,16 @@ public class FlagDrawer {
     
     
     ///Challenge of drawing different kinds of flags
+    ///The process of challenge:
+    //1. Click run → drawFlagChallenge()
+    //2. The user enters the position, number of stripes, and direction
+    //3. The user selects colors in turn → stores them in the array colours[]
+    //4. Call drawStripes(...) → starts drawing background stripes
+    //5. Return to the main method and ask what kind of decoration you want to add
+    //6. Based on your choice → call the corresponding decoration method
+    //7. Draw the decoration pattern (rectangle, ellipse, small flag)
+    //8. A complete custom flag is completed!
+    
     	public void drawFlagChallenge(){
     	    double left = UI.askDouble("Left of flag:");
     	    double top = UI.askDouble("Top of flag:");

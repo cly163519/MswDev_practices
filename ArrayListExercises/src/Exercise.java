@@ -52,7 +52,7 @@ public class Exercise{
      * Note: it has to read all the numbers before it can plot any of them.
      */
     public void plotNumbers(){
-        double base = 450;
+        double base = 400;
         UI.drawLine(0, base, 600, base);     // draws the base line (x1,y1,x2,y2)
         ArrayList<Double> nums = new ArrayList<Double>(); // the ArrayList of numbers
 
@@ -75,26 +75,32 @@ public class Exercise{
         double middle = nums.get((size - 1)/2);
         
         for(int i = 0; i < size; i++) {
-        	double currentNum = nums.get(i);//I can't figure out this sentence.
+        	double currentNum = nums.get(i);//I don't understand this sentence.
+        	//Set the colors
         	if(currentNum < middle) {
             	UI.setColor(Color.green);
-//            	UI.drawRect(x, base, 5, height);
-//                UI.fillRect(x, base, 5, height);
-            }else if(currentNum == middle) {
+            }else if (currentNum == middle){ //(Math.abs(currentNum - middle) < 0.0001)
             	UI.setColor(Color.black);
-//                UI.fillRect(x, base, 5, height);
-//            	UI.drawRect(x, base, 5, height);
             }else {
             	UI.setColor(Color.red);
-//                UI.fillRect(x, base, 5, height);
-//            	UI.drawRect(x, base, 5, height);
             }
-        	UI.fillRect(x, base - currentNum, 5, currentNum);
-        	UI.drawRect(x, base - currentNum, 5, currentNum);
+        	
+        	//Set the columns
+        	if(currentNum < 0) {
+        		UI.fillRect(x, base, 5, -currentNum);
+        		UI.drawRect(x, base, 5, -currentNum);
+        	
+        	}else {
+        		UI.fillRect(x, base - currentNum, 5, currentNum);
+        		UI.drawRect(x, base - currentNum, 5, currentNum);
+        	}
         	
         	x += 6;
+        	UI.printf("Middle: %.10f, Current: %.10f\n", middle, currentNum);
         }
         
+        
+
     }
 
     /** 
@@ -137,10 +143,6 @@ public class Exercise{
         	numbers.add(i);
         }
         
-//        for(int i = 0; i < numbers.size(); i++) {
-//        	UI.println(numbers.get(i));
-//        }
-        
         UI.println(numbers);
         
         while(true) {
@@ -158,6 +160,7 @@ public class Exercise{
         }
         	UI.println(numbers);
         }
+        
         
     }
 

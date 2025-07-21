@@ -43,7 +43,7 @@ public class Numbers {
 		}
 		
 		public void displayList() {
-			UI.clearText();//What does this line mean?
+			UI.clearText();
 			UI.println(this.allNums.size());
 			for(int i = 0; i < this.allNums.size(); i++) {
 				UI.println(this.allNums.get(i));
@@ -55,11 +55,10 @@ public class Numbers {
 		public void deleteAll() {//Focus on learning this logic.
 			
 			for (int i = allNums.size() - 1; i >= 0; i--) {
-				//int num = UI.askInt("Number: ");
-				//Integer removeNum = nums.get(num).remove(); 
+				
 				this.allNums.remove(i);
 			}
-			//this.allNums.clear();
+			
 			this.displayList();	
 		    UI.println("All numbers deleted");
 		    

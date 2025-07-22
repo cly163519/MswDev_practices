@@ -160,7 +160,8 @@ public class WaveformAnalyser {
 		//double fraction = 0;
 		/* # YOUR CODE HERE */
 		 int count = 0;
-		    for (double val : waveform) {
+		    for (int i = 0; i < waveform.size(); i++) {
+		        double val = waveform.get(i);
 		        if (Math.abs(val) > THRESHOLD) {
 		            count++;
 		        }
@@ -191,7 +192,7 @@ public class WaveformAnalyser {
 	        if (val < min) min = val;
 	    }
 	    UI.setColor(Color.green);
-	    UI.drawLine(GRAPH_LEFT, ZERO_LINE - max, GRAPH_LEFT + waveform.size(), ZERO_LINE - max);
+	    UI.drawLine(GRAPH_LEFT, ZERO_LINE - max, GRAPH_LEFT + waveform.size(), ZERO_LINE - max);//GRAPH_LEFT + waveform.size()This means x+arraylist's counts
 	    UI.setColor(Color.red);
 	    UI.drawLine(GRAPH_LEFT, ZERO_LINE - min, GRAPH_LEFT + waveform.size(), ZERO_LINE - min);
 	    UI.println("Spread: " + (max - min));
@@ -304,6 +305,8 @@ public class WaveformAnalyser {
 		this.upperEnvelope();
 		this.lowerEnvelope();
 	}
+	
+	
 
 	/**
 	 * [CHALLENGE] Displays the upper envelope with GREEN lines connecting all
@@ -355,6 +358,10 @@ public class WaveformAnalyser {
 	public void doSave() {
 		/* # YOUR CODE HERE */
 		String fileName = UIFileChooser.save();
+		if(fileName == null) {
+			UI.println("Save cancelled");
+			return;
+		}
 	    try {
 	        PrintStream ps = new PrintStream(new File(fileName));
 	        for (double val : waveform) {

@@ -51,6 +51,7 @@ public class Exercise{
      *    red otherwise.
      * Note: it has to read all the numbers before it can plot any of them.
      */
+    
     public void plotNumbers(){
         double base = 400;
         UI.drawLine(0, base, 600, base);     // draws the base line (x1,y1,x2,y2)

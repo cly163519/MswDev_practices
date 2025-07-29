@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Both extends Businesses {
 
@@ -24,5 +25,42 @@ public class Both extends Businesses {
 	
 	public void recordSale(double amount) {
 		balance += amount;
+	}
+
+	@Override
+	public String getDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addTransaction(Transaction t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Transaction> getTransactions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isBirthdayToday() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public String getGSTNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isGSTRegistered() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

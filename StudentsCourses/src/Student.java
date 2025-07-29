@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Student {
 	private static int nextId = 1;//这行什么意思?

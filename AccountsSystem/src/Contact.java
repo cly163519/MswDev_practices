@@ -1,14 +1,14 @@
+import java.sql.Date;
 import java.util.List;
 
 public interface Contact {
-	
 	String getName();
-	String getDetails();
-	void addTransaction(Transaction t);//写这行要求添加transaction类,为啥其他方法就没要求?
-	List<Transaction> getTransactions();//始终不明白这行,list是接口?API用法?
+	String getDetails();//这里取什么名字,如getName or getDetails和主函数main里的方法名没关系?
 	double getBalance();
-	boolean isBirthdayToday();
-	boolean isGSTRegistered();
+	void recordTransaction(String type, double amount);
+	List<String> getTransactions();//主类里写contact,这里又写string,矛盾吗?
+	void setGSTRegistration(boolean registered,String gstNumber);
 	String getGSTNumber();
-	
+	boolean isPerson();
+	boolean hasBirthday(Date date);
 }

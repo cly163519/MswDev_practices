@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class AccountsUI {
 		UI.addButton("Record purchase from supplier", this::recordPurchase);
 		UI.addButton("Record sale to client", this::recordSale);
 		UI.addButton("Report sale/purchase balance for contact", this::reportBalance);
-		UI.addButton("Compute total profit", this::computeProfit);
+		UI.addButton("Compute total profit", this::computeProfit1);
 		UI.addButton("List all transactions with a contact", this::listTransactions);
 		// Your code here?
 	}
@@ -29,31 +29,39 @@ public class AccountsUI {
 		String name = UI.askString("Name: ");
 		int age = UI.askInt("Age: ");
 		// Your code here...
-		int day = UI.askInt("Birthday Day: ");
-		int month = UI.askInt("Birthday month: ");
-		boolean isStaff = UI.askBoolean("Is staff?");
-		boolean isCustomer = UI.askBoolean("Is customer?");
-		boolean gstReg = UI.askBoolean("Is registered?"); 
-		String gstNum = gstReg ? UI.askString("GST Number: ") : "";
-		int businessNumber = UI.askInt("Business number: ");
-		boolean isSupplier = UI.askBoolean("Is supplier?");
-
-		LocalDate birthday = LocalDate.of(2000, month, day);
-		
-		Contact individual = new Individuals(name, age, businessNumber, birthday, isStaff, isCustomer, isSupplier, gstReg, gstNum);
-		contacts.add(individual);
-		UI.println("Person added");
+		Date birthday = new Date(0);
+		Person person = new Person(name, age, birthday);
+		if (UI.askBoolean("Is this person staff?")) {
+            person.setAsStaff(true);
+        }
+        
+        if (UI.askBoolean("Is this person a customer?")) {
+            person.setAsCustomer(true);
+        }
+        
+        if (UI.askBoolean("Is GST registered?")) {
+            String gst = UI.askString("GST number: ");
+            person.setGSTRegistration(true, gst);
+        }
+        
+        contacts.add(person);
+        UI.println("Person added: " + name);
 	}
 	
 	private void addSupplier() {
 		// Add a supplier to the list of contacts
 		String name = UI.askString("Name: ");
-		int bn = UI.askInt("Business number: ");
+		int nbn = UI.askInt("Business number: ");
 		// Your code here...
-		boolean gstReg = UI.askBoolean("GST registered?");
-		String gstNum = gstReg ? UI.askString("GST number: ") : "";
-		Contact supplier = new Businesses(name, bn, true,false, gstReg, gstNum);
-		UI.println("Supplier added.");
+		Supplier supplier = new Supplier(name, nbn);
+        
+        if (UI.askBoolean("Is GST registered?")) {
+            String gst = UI.askString("GST number: ");
+            supplier.setGSTRegistration(true, gst);
+        }
+        
+        contacts.add(supplier);
+        UI.println("Supplier added: " + name);
 	}
 	
 	private void addBusinessClient() {
@@ -61,69 +69,104 @@ public class AccountsUI {
 		String name = UI.askString("Name: ");
 		int nbn = UI.askInt("Business number: ");
 		// Your code here...
+		Customer customer = new Customer(name, nbn);
+        
+        if (UI.askBoolean("Is GST registered?")) {
+            String gst = UI.askString("GST number: ");
+            customer.setGSTRegistration(true, gst);
+        }
+        
+        contacts.add(customer);
+        UI.println("Customer added: " + name);
 	}
 	
 	private void addTradingPartner() {
 		// Add someone who is both a buyer and a seller to the list of contacts
 		String name = UI.askString("Name: ");
 		// Your code here...
+		int nbn = UI.askInt("Business number: ");
+        
+        TradingPartner partner = new TradingPartner(name, nbn);
+        
+        if (UI.askBoolean("Is GST registered?")) {
+            String gst = UI.askString("GST number: ");
+            partner.setGSTRegistration(true, gst);
+        }
+        
+        contacts.add(partner);
+        UI.println("Trading partner added: " + name);
 	}
 	
 	private void listContacts() {
 		// List all contacts in the system
 		// Your code here...
-		for(int i = 0; i < contacts.size(); i++) {
-			UI.println(contacts.get(i).getDetails());
-		}
-	}
-	private Contact findContact() {
-		return null;
+		UI.clearText();
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact contact = contacts.get(i);//接口不是不能new吗?但是可以这样写?
+            UI.println(contact.getDetails());
+        }
 	}
 	
-	private Contact findContactByName(String name ) {
+	private void findContact() {
 		// Find one of the contacts by name and report on them
-		UI.askString("Name: ");
+		String name = UI.askString("Name: ");
 		// Your code here...
-		for(int i = 0; i < contacts.size(); i++) {
-			if(contacts.get(i).getName().equalsIgnoreCase(name)) {
-				return contacts.get(i);
-			}
-		}
-	   return null;
+		Contact found = null;
+        
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact contact = contacts.get(i);
+            if (contact.getName().equalsIgnoreCase(name)) {
+                found = contact;
+                break;
+            }
+        }
+        
+        if (found != null) {
+            UI.println("Contact found:");
+            UI.println(found.getDetails());
+            UI.println("Balance: $" + found.getBalance());
+        } else {
+            UI.println("Contact not found: " + name);
+        }
 	}
 	
 	private void recordPurchase() {
 		// Record a purchase from a supplier
 		String name = UI.askString("Supplier: ");
 		String product = UI.askString("Purchased: ");
-		
+		double price = UI.askInt("Price: ");
 		// Your code here...
-		Contact c = findContactByName(name);
-		if(c != null) {
-			String item = UI.askString("Item: ");
-			double price = UI.askDouble("Cost: ");
-			c.addTransaction(new Transaction(item, -price));//这句看起来好高深
-			UI.println("Purchase recorded.");
-		}else {
-			UI.println("Supplier not found.");
-		}
-		
+		Contact supplier = findContactByName(name);//这个方法实在本主类里的,不是在接口里的
+        
+        if (supplier == null) {
+            UI.println("Supplier not found: " + name);
+            return;
+        }
+        supplier.recordTransaction("PURCHASE", price);
+        UI.println("Purchase recorded: $" + price + " from " + name);
 	}
 	
+	private Contact findContactByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void recordSale() {
 		// Record a sale to a customer
 		String name = UI.askString("Customer: ");
-		
+		String product = UI.askString("Purchased: ");
+		double price = UI.askInt("Price: ");
 		// Your code here...
-		Contact c  = findContactByName(name);
-		if(c != null) {
-			String product = UI.askString("Purchased: ");
-			double price = UI.askInt("Price: ");
-			c.addTransaction(new Transaction(product, price));//与上面的product, 
-			UI.println("Sale recorded");
-		}else {
-			UI.println("Client not found.");
-		}
+		Contact customer = findContactByName(name);
+        
+        if (customer == null) {
+            UI.println("Customer not found: " + name);
+            return;
+        }
+        customer.recordTransaction("SALE", price);
+        double totalProfit = price;
+        
+        UI.println("Sale recorded: $" + price + " to " + name);
 	}
 	
 	
@@ -131,57 +174,77 @@ public class AccountsUI {
 		// Report how much has been paid by/to a contact
 		String name = UI.askString("Name: ");
 		// Your code here...
-		Contact c = findContactByName(name);
-		if(c != null) {
-			UI.println("Balance: " + c.getBalance());
-		}else {
-			UI.println("Contact not found.");
-		}
+	}
+	
+	private void computeProfit1() {
+		String name = null;
+		// Compute the total profit of the business (sales - purchases)
+		// Your code here...
+		Contact contact = findContactByName(name);
+        
+        if (contact != null) {
+            UI.println("Balance for " + name + ": $" + contact.getBalance());
+        } else {
+            UI.println("Contact not found: " + name);
+        }
 	}
 	
 	private void computeProfit() {
-		// Compute the total profit of the business (sales - purchases)
-		// Your code here...
-		
-	}
-	
-	private void listTransactions() {
-	}	
-	
+        String totalProfit = null;
+		UI.println("Total profit: $" + totalProfit);
+    }
+    
+    private void listTransactions() {
+        String name = UI.askString("Contact name (leave blank for all): ");
+        
+        if (name.trim().isEmpty()) {
+            UI.println("ALL TRANSACTIONS:");
+            for (int i = 0; i < contacts.size(); i++) {
+                Contact contact = contacts.get(i);
+                List<String> transactions = contact.getTransactions();
+                for (int j = 0; j < transactions.size(); j++) {
+                    UI.println(contact.getName() + ": " + transactions.get(j));
+                }
+            }
+        } else {
+            Contact contact = findContactByName(name);//接口可以直接这样写吗?跟new不同?
+            if (contact != null) {
+                UI.println("TRANSACTIONS FOR " + name + ":");
+                List<String> transactions = contact.getTransactions();
+                for (int j = 0; j < transactions.size(); j++) {
+                    UI.println(transactions.get(j));
+                }
+            } else {
+                UI.println("Contact not found: " + name);
+            }
+        }
+    }	
+    @SuppressWarnings("unused")
+	private void checkBirthdays() {
+        Date today = new Date(0); // Simplified - should use current date
+        UI.println("Today's birthdays:");
+        
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact contact = contacts.get(i);
+            if (contact.isPerson() && contact.hasBirthday(today)) {
+                UI.println("Happy birthday, " + contact.getName() + "!");
+            }
+        }
+    }
+    
+    @SuppressWarnings("unused")
+	private Contact findContactByName1(String name) {
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact contact = contacts.get(i);
+            if (contact.getName().equalsIgnoreCase(name)) {
+                return contact;
+            }
+        }
+        return (Contact) contacts;
+    }
 	
 	public static void main(String[] args) {
 		new AccountsUI();
 	}
 
 }
-/*
- * private void computeProfit() {
-    double total = 0;
-    for (int i = 0; i < contacts.size(); i++) {
-        total += contacts.get(i).getBalance();
-    }
-    UI.println("Total Profit: $" + total);
-}
-
-private void listTransactions() {
-    String name = UI.askString("Name (leave blank for all): ");
-    if (name.trim().isEmpty()) {
-        for (int i = 0; i < contacts.size(); i++) {
-            List<Transaction> txs = contacts.get(i).getTransactions();
-            for (int j = 0; j < txs.size(); j++) {
-                UI.println(contacts.get(i).getName() + ": " + txs.get(j).getItem() + " - $" + txs.get(j).getAmount());
-            }
-        }
-    } else {
-        Contact c = findContactByName(name);
-        if (c != null) {
-            List<Transaction> txs = c.getTransactions();
-            for (int i = 0; i < txs.size(); i++) {
-                UI.println(txs.get(i).getItem() + " - $" + txs.get(i).getAmount());
-            }
-        } else {
-            UI.println("Contact not found.");
-        }
-    }
-}
- */

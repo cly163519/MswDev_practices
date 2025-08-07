@@ -26,7 +26,7 @@ public class ImageProcessing {
 		
 	}
 	
-	private void loadFileHandler() {
+	private void loadFileHandler() {//你理解这一段，图片格式、文件读取、图像绘制就差不多入门了！
 		UI.setColor(new Color(/* red */ 1.0f, /* green */ 1.0f, /* blue */ 1.0f));
 		UI.fillRect(0, 0, 1000, 1000);
 		
@@ -113,8 +113,7 @@ public class ImageProcessing {
 	}
 
 	private void mouseMotionListener(String action, double x, double y) {
-		// You might need to use this for some of the extension. Don't worry about
-		// it until then.
+		// You might need to use this for some of the extension. Don't worry about it until then.
 		// Documentation is at
 		// https://ecs.victoria.ac.nz/foswiki/pub/Main/JavaResources/UI.html#setMouseMotionListener(ecs100.UIMouseListener)
 	}

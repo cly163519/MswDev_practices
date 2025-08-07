@@ -168,7 +168,7 @@ public class YourCode {
 		
 		for (int i = 0; i < input1.size(); i++) {//traverse the input1 list
 			String word1 = input1.get(i);//Create new String variable word2
-			boolean match = false;//Create boolean match variabel
+			boolean match = false;//Create boolean match variable
 			for (int j = 0; j < input2.size(); j++) {//Traverse the input2 list
 				String word2 = input2.get(j);//Create new variable of word2
 				if (word1.equals(word2)) {//Make a judgment of word1 and word2

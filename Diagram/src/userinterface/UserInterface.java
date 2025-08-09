@@ -13,6 +13,8 @@ import javax.swing.JColorChooser;
 import ecs100.UI;
 import ecs100.UIFileChooser;
 
+
+
 public class UserInterface {
 	double x1;//The shapes beginner x on canvas
 	double y1;//The shapes beginner y on canvas
@@ -199,6 +201,7 @@ public class UserInterface {
 		        pw.println("P2");//Skip P2 in the file
 		        pw.println(width + " " + height);//Image dimension
 		        pw.println("255");//Max grayscale value
+		        
 		        for (int i = 0; i < height; i++) {//Write the pixel data
 		            for (int j = 0; j < width; j++) {
 		                pw.print(pixels[i][j] + " ");//Print the grayvalue

@@ -16,6 +16,7 @@ public class Text implements Shape{
         this.text = text;
         this.color = color;
     }
+    
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub

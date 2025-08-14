@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
+//import java.util.Random;
 
 import ecs100.UI;
 
@@ -294,40 +295,45 @@ public class YourCode {
 	// x + (int)(Math.random() * (n - x)).
 	public void shuffle(ArrayList<Double> input) {
 		/// YOUR CODE HERE
-		Random rand = new Random();//Create a new random object
-		for(int i = 0; i < input.size(); i++) {//Traverse the whole list
-			
+		if(input.size() < 2 || input == null) {
+			return;
 		}
 		
+		for(int i = 0; i < input.size() - 1; i++) {
+			int j = i + (int)(Math.random() * (input.size() - 1 - i));
+			
+			Double temp = input.get(i);
+			input.set(i, input.get(j));
+			input.set(j, temp);
+		}
 		
-		
+}
+	// Return true if word1 and word2 are anagrams of one another. One word is an anagram of another if it
+	// has all the letters of the other word in a different order.
+	// Hint: the substring(int beginIndex, int endIndex) method gives the part of the string from beginIndex
+	// (inclusive) to endIndex (exclusive).
+	// Hint: charAt(int index) gives the character at the given position in a string as a char, which is a
+	// primitive type that can be used as an integer.
+
+	public boolean isAnagram(String word1, String word2) {
+	    // 1) 空串/空引用直接判不是
+	    if (word1 == null || word2 == null) return false;
+
+	    // 2) 长度不同肯定不是（变位词必须字母个数相同）
+	    if (word1.length() != word2.length()) return false;
+
+	    // 3) 全转小写（想区分大小写就删掉 toLowerCase()）
+	    char[] a = word1.toLowerCase().toCharArray();
+	    char[] b = word2.toLowerCase().toCharArray();
+
+	    // 4) 各自排序
+	    Arrays.sort(a);
+	    Arrays.sort(b);
+
+	    // 5) 排序后逐字符相等 → 是变位词
+	    return Arrays.equals(a, b);
 	}
 
-	// Return true if word1 and word2 are anagrams of one
-	// another. One word is an anagram of another if it
-	// has all the letters of the other word in a different
-	// order.
-	//
-	// Hint: the substring(int beginIndex, int endIndex)
-	// method gives the part of the string from beginIndex
-	// (inclusive) to endIndex (exclusive).
-	// Hint: charAt(int index) gives the character at the
-	// given position in a string as a char, which is a
-	// primitive type that can be used as an integer.
-	public boolean isAnagram(String word1, String word2) {
-		if(word1.length() != word2.length()) {//If the length of the words are not same, return false
-			return false;
-		}
-		for(int i = 0; i < word1.length(); i++) {//Traverse the word1 list
-			
-			for(int j = 0; j < word2.length(); j++) {//Traverse the word2 list
-				
-			}
-		}
-		
-		
-		return true;
-	}
 
 	// Return an ArrayList with a rolling five-item Olympic average
 	// of the numbers in the input list.

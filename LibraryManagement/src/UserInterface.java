@@ -1,11 +1,14 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import ecs100.UI;
 
 public class UserInterface {
-
+	List<Author> authors = new ArrayList<>();
+	
 	public UserInterface() {
 		UI.initialise();
 		UI.addButton("List authors", this::listAuthors);
@@ -15,7 +18,7 @@ public class UserInterface {
 		UI.addButton("Issue book", this::issueBook);
 		
 		try {
-			Scanner scan = new Scanner(new File("books.txt"));
+			Scanner scanner = new Scanner(new File("books.txt"));
 			// Write code here to load books.txt into objects
 			// and lists you design. You will need to make
 			// classes, write loops to load the file,
@@ -29,9 +32,18 @@ public class UserInterface {
 			// the title and the year of publication.
 			// A line containing "---" is the end of a block,
 			// and then the next line (if any) starts the next block.
-			while (scan.hasNext()) {
-				String s = scan.nextLine();
-				UI.println(s);
+			while (scanner.hasNext()) {
+				String authorName = scanner.nextLine();
+				int birthYear = Integer.parseInt(scanner.next());
+				int deathYear = Integer.parseInt(scanner.next());
+				
+				String bookName = scanner.nextLine();
+				int publishYear = scanner.nextInt();
+				
+				Author author = new Author(authorName, birthYear, deathYear);//这里的参数,不是按照author类里的构造参数传参??
+				authors.add(author);
+				
+				//UI.println(s);
 			}
 		} catch (IOException e) {
 			UI.println("File error: " + e);

@@ -32,7 +32,7 @@ public class Book {
 		return issued;
 	}
 	
-	public String getIssuedTo() {//issuedTo和issued有什么区别?
+	public String getIssuedTo(String patron) {//issuedTo和issued有什么区别?
 		return issuedTo;
 	}
 	

@@ -108,13 +108,13 @@ public class UserInterface {
 		String name = UI.askString("<<");
 //		for(int i = 0; i < books.size(); i++) {
 //			Book book = books.get(i);
-//			if(book.getAuthor().getName().equalsIgnoreCase(name)) {//得到这本书的作者对象 → 再拿到作者的名字（字符串）
+//			if(book.getAuthor().getName().equalsIgnoreCase(name)) {//从book对象getAuthor()得到作者对象 → 再拿到作者的名字（字符串）
 //				UI.println(book.getTitle() + "(" + book.getPublishYear() + ")");
 //			}
 //		}
 		for(int i = 0; i < authors.size(); i++) {
 			Author author = authors.get(i);
-			if(author.getName().equalsIgnoreCase(name));{
+			if(author.getName().equalsIgnoreCase(name)){
 				List<Book> books = author.getBookName();
 				for(int j = 0; j < books.size(); j++) {
 					Book book = books.get(j);

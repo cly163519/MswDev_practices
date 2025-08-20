@@ -102,7 +102,7 @@ public class UserInterface {
 		}
 	}
 	
-	public void listAuthorBooks() {
+	public void listAuthorBooks() {//如何分析这类需求?books是主语,最终提取的是book的数据
 		// List titles of all books by a chosen author
 		UI.println("Enter author name: ");
 		String name = UI.askString("<<");
@@ -159,7 +159,7 @@ public class UserInterface {
 	                b.getIssuedTo(patron);
 	                UI.println("Book issued to " + patron);
 	            } else {
-	                UI.println("Book is already issued to " + b.getIssuedTo());
+	               // UI.println("Book is already issued to " + b.getIssuedTo());
 	            }
 	            return;
 	        }

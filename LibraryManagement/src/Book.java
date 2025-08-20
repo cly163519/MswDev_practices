@@ -1,5 +1,3 @@
-//import java.sql.Date;
-
 
 public class Book {
 	String title;//String bookName;不同类不要取一样名字?

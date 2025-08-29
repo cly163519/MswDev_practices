@@ -1,6 +1,7 @@
 import java.io.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,11 +72,30 @@ public class FunWithWords {
 //           .limit(10)
 //           .forEach(e -> System.out.println(e.getKey() + " : " + e.getValue()));
         
-        //这是什么用法?
+//        //这是什么用法?
+//        System.out.println("Using a comparator to sort the outputs alphabetically: ");
+//        map.entrySet().stream()
+//           .sorted(Comparator.comparing(Map.Entry::getKey))  // 按 key (单词) 排序
+//           .forEach(e -> System.out.println(e.getKey() + " : " + e.getValue()));
+        
         System.out.println("Using a comparator to sort the outputs alphabetically: ");
-        map.entrySet().stream()
-           .sorted(Comparator.comparing(Map.Entry::getKey))  // 按 key (单词) 排序
-           .forEach(e -> System.out.println(e.getKey() + " : " + e.getValue()));
+
+	     // 1. 把 map.entrySet() 转成 list
+	     List<Map.Entry<String, Integer>> listMap = new ArrayList<>(map.entrySet());
+	     // 2. 排序：按 key (单词) 字母顺序
+	     Collections.sort(listMap, new Comparator<Map.Entry<String, Integer>>() {
+	         @Override
+	         public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
+	             return a.getKey().compareTo(b.getKey());  // 按 key 的字母顺序比较
+	         }
+	     });
+	     // 3. 用最传统的 for 循环输出
+	     for (int i = 0; i < list.size(); i++) {
+	         Map.Entry<String, Integer> e = listMap.get(i);
+	         System.out.println(e.getKey() + " : " + e.getValue());
+	     }
+	     
+	     
         //这是什么用法?
         System.out.println("Sort by number of occurrences: ");
         map.entrySet().stream()

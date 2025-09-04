@@ -1,4 +1,3 @@
-// Imports for working with files, lists, and UI
 import java.awt.Color;
 
 import java.io.File;

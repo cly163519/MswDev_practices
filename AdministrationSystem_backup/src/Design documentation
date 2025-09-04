@@ -1,0 +1,16 @@
+Administration system - Design document:
+1. 4 classes needed, course, student, grade, main(modified version: remove grade, add "admin class")
+2. Course: id, name, student list,  grades(or grade should be as a single class?)
+3. Student: id, name, score, course list
+4. Main: file reading, functions(wait for adding)
+5. 
+
+
+
+Questions:
+1.Why I do not need a list in Student class?
+  If there is an arrayList in student class, can I pass the parameters in the construction method?
+
+2.Do I need a setter or getter in every class?
+
+3.
